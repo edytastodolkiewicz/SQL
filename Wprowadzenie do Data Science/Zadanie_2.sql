@@ -1,4 +1,5 @@
 CREATE DATABASE School_Coding;
+USE School_Coding;
 CREATE TABLE Mentors (
 ID INTEGER PRIMARY KEY,
 Imie TEXT NOT NULL,
