@@ -6,7 +6,7 @@ Imie TEXT NOT NULL,
 Nazwisko TEXT NOT NULL,
 Specjalizacja TEXT NOT NULL,
 Data_zatrudnienia DATE NOT NULL,
-Data_zwolnienia DATE DEFAULT 'Not Applicable'
+Data_zwolnienia DATE DEFAULT NULL
 );
 INSERT INTO Mentors (ID, Imie, Nazwisko, Specjalizacja, Data_zatrudnienia)
 VALUES (1, 'Anna', 'Banasiak', 'Scrum', '2019-01-01'),
