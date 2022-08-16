@@ -6,10 +6,19 @@ Imie TEXT NOT NULL,
 Nazwisko TEXT NOT NULL,
 Specjalizacja TEXT NOT NULL,
 Data_zatrudnienia DATE NOT NULL,
-Data_zwolnienia DATE NOT NULL
+Data_zwolnienia DATE DEFAULT 'Not Applicable'
 );
-INSERT INTO Mentors (ID, Imie, Nazwisko, Specjalizacja, Data_zatrudnienia, Data_zwolnienia)
-VALUES (1, 'Anna', 'Banasiak', 'Scrum', '2019-01-01', '2021-12-31'),(2, 'Rafał', 'Królik', 'Product Owner', '2019-01-01', '2020-11-30'), (3, 'Michał', 'Kasprzak', 'Data Science', '2019-01-01', '2019-03-31'), (4, 'Adam', 'Kowal', 'Data Science', '2019-04-01', '2022-07-31'), (5, 'Ewa', 'Kopczyńska', 'Frontend Developer', '2019-01-01', '2021-12-31'), (6, 'Jacek', 'Król', 'Python Developer', '2019-01-01', '2022-08-31'), (7, 'Łukasz', 'Kujawa', 'Tester oprogramowania', '2019-01-01', '2019-10-31'), (8, 'Artur', 'Zatłoka', 'UX Designer', '2020-03-01', '2021-03-31'), (9, 'Magda', 'Malinowska', 'Cybersecurity', '2022-01-02', '2022-04-30'), (10, 'Piotr', 'Pawłowski', 'Java Developer', '2020-01-05', '2021-12-31');
+INSERT INTO Mentors (ID, Imie, Nazwisko, Specjalizacja, Data_zatrudnienia)
+VALUES (1, 'Anna', 'Banasiak', 'Scrum', '2019-01-01'),
+(2, 'Rafał', 'Królik', 'Product Owner', '2019-01-01'), 
+(3, 'Michał', 'Kasprzak', 'Data Science', '2019-01-01'),
+(4, 'Adam', 'Kowal', 'Data Science', '2019-04-01'),
+(5, 'Ewa', 'Kopczyńska', 'Frontend Developer', '2019-01-01'),
+(6, 'Jacek', 'Król', 'Python Developer', '2019-01-01'),
+(7, 'Łukasz', 'Kujawa', 'Tester oprogramowania', '2019-01-01'),
+(8, 'Artur', 'Zatłoka', 'UX Designer', '2020-03-01'),
+(9, 'Magda', 'Malinowska', 'Cybersecurity', '2022-01-02'),
+(10, 'Piotr', 'Pawłowski', 'Java Developer', '2020-01-05');
 SELECT * FROM Mentors;
 UPDATE Mentors
 SET Nazwisko = 'Kopacz'
