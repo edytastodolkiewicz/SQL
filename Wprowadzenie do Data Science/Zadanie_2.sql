@@ -32,11 +32,5 @@ ALTER TABLE Mentors
 ADD COLUMN Wynagrodzenie INTEGER NOT NULL;
 UPDATE Mentors
 SET Wynagrodzenie = 1000 
-WHERE ID = 1;
-UPDATE Mentors
-SET Wynagrodzenie = 1000 
-WHERE ID = 2;
-UPDATE Mentors
-SET Wynagrodzenie = 1000 
-WHERE ID = 3;
+WHERE ID IN (1,2,3);
 SELECT * FROM Mentors WHERE ID = 1 OR ID = 2 OR ID = 3;
