@@ -1,0 +1,22 @@
+Pracownicy;;;;
+ID;Imie;Nazwisko ;Wiek;Kurs
+1;Anna;NOWAK;34;DS.
+2;Roman;KOWALSKI;42;DS.
+3;Tomasz;WISNIEWSKI;33;DS.
+4;Anna;;43;DS.
+5;Elzbieta;KOWALCZYK;;Tester
+6;Anna;KOWALCZYK;;Java
+7;Robert;KOWALCZYK;;Java
+8;Rados?aw;ZIELINSKI;;Java
+9;Robert;WOZNIAK;;Java
+10;Robert;SZYMANSKI;34;Tester
+11;Rados?aw;DABROWSKI;35;
+12;Robert;KOZ?OWSKI;;UX
+13;Joanna;MAZUR;26;UX
+14;Rados?aw;JANKOWSKI;27;UX
+15;Patryk;LEWANDOWSKI;28;
+16;;ZIELINSKI;28;
+17;Andrzej;WOZNIAK;31;
+18;Andrze;LEWANDOWSKI;30;
+19;Roman;KOWALCZYK;39;
+20;Ewa;WOZNIAK;31;
