@@ -18,7 +18,7 @@ UPDATE Pracownicy
 SET Kurs = NULL WHERE Kurs = '';
 SELECT * FROM Pracownicy;
 SELECT * FROM Pracownicy WHERE Nazwisko = 'KOWALCZYK';
-SELECT * FROM Pracownicy WHERE Wiek >= 30 AND Wiek <= 40;
+SELECT * FROM Pracownicy WHERE Wiek BETWEEN 30 AND 40;
 SELECT * FROM Pracownicy WHERE Nazwisko NOT LIKE '%and%';
 SELECT * FROM Pracownicy WHERE ID >=1 AND ID <= 7;
 SELECT * FROM Pracownicy WHERE ID IS NULL OR Imię IS NULL OR Nazwisko IS NULL OR Wiek IS NULL OR Kurs IS NULL;
