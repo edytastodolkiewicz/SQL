@@ -4,7 +4,7 @@ CREATE TABLE Pracownicy (
 ID INTEGER UNIQUE PRIMARY KEY,
 Imię TEXT DEFAULT NULL,
 Nazwisko TEXT DEFAULT NULL,
-Wiek INTEGER DEFAULT NULL,
+Wiek TEXT DEFAULT NULL,
 Kurs TEXT DEFAULT NULL
 );
 SELECT * FROM Pracownicy;
@@ -16,6 +16,7 @@ UPDATE Pracownicy
 SET Wiek = NULL WHERE Wiek = '';
 UPDATE Pracownicy
 SET Kurs = NULL WHERE Kurs = '';
+ALTER TABLE Pracownicy MODIFY COLUMN Wiek INTEGER;
 SELECT * FROM Pracownicy;
 SELECT * FROM Pracownicy 
 WHERE Imię = 'Anna';
