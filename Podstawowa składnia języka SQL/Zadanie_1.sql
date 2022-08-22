@@ -41,8 +41,9 @@ SELECT max(price) FROM batman;
 SELECT max(start_date) FROM batman;
 -- i)
 SELECT max(last_name) FROM batman;
-SELECT last_name FROM batman LIMIT 1
-ORDER BY last_name DESC;
+SELECT last_name FROM batman
+ORDER BY last_name DESC
+LIMIT 1;
 -- j)
 SELECT min(price) FROM batman;
 -- k)
