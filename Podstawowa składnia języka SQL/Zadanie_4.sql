@@ -21,7 +21,7 @@ INSERT INTO aggregates.batman VALUES (8, 'Tomasz', 'Nowak', 'M', 60, 150.00, '20
 INSERT INTO aggregates.batman VALUES (9, 'Aldona', 'Buk', NULL, NULL, 121.25, '2020-01-10', 'wycieczka');
 SELECT * FROM batman;
 -- a)
-SELECT AVG(age) FROM batman;
+SELECT ROUND(AVG(age),2) FROM batman;
 -- b)
 SELECT ABS(-3);
 -- c)
