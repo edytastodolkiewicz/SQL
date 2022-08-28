@@ -100,9 +100,14 @@ RIGHT JOIN
 a. Wyszukaj listę pośredników pracujących dla jednego bądź więcej klientów lub takich, którzy jeszcze nie podjęli współpracy z żadnym klientem, posortuj listę rosnąco wg kolumny kodu pośrednika (agenta); nazwij kolumnę zawierającą nazwy pośredników jako „Salesman”, wyszukaj również ich obszar działalności
  */
  
-SELECT customer.cust_name, agents.agent_name AS 'Salesman', agents.working_area
-FROM customer
-RIGHT JOIN agents ON customer.agent_code = agents.agent_code
+SELECT 
+    customer.cust_name,
+    agents.agent_name AS 'Salesman',
+    agents.working_area
+FROM
+    customer
+        RIGHT JOIN
+    agents ON customer.agent_code = agents.agent_code
 ORDER BY agents.agent_code;
 
  /*
@@ -113,22 +118,33 @@ c. Wyszukaj iloczyn kartezjański pośredników oraz klientów, w taki sposób, 
  */
  
 -- a)
-SELECT * 
-FROM agents
-CROSS JOIN customer;
+SELECT 
+    *
+FROM
+    agents
+        CROSS JOIN
+    customer;
 
 -- b)
-SELECT * 
-FROM agents
-CROSS JOIN customer
-WHERE agents.working_area = customer.working_area;
+SELECT 
+    *
+FROM
+    agents
+        CROSS JOIN
+    customer
+WHERE
+    agents.working_area = customer.working_area;
 
 -- c)
-SELECT * 
-FROM agents
-CROSS JOIN customer
-WHERE agents.working_area <> customer.working_area
-AND customer.grade IS NOT NULL;
+SELECT 
+    *
+FROM
+    agents
+        CROSS JOIN
+    customer
+WHERE
+    agents.working_area <> customer.working_area
+        AND customer.grade IS NOT NULL;
 
  /*
 UNION
@@ -137,30 +153,54 @@ b. Napisz kwerendę, która zwróci raport pokazujący, który pośrednik przyj�
  */
 
 -- a)
-SELECT agent_code AS 'ID', agent_name, 'Salesman' AS 'Rodzaj'
-FROM agents
-WHERE working_area = 'London'
-UNION
-SELECT cust_code AS 'ID', cust_name, 'Customer' AS 'Rodzaj'
-FROM customer
-WHERE working_area = 'London';
+SELECT 
+    agent_code AS 'ID', agent_name, 'Salesman' AS 'Rodzaj'
+FROM
+    agents
+WHERE
+    working_area = 'London' 
+UNION SELECT 
+    cust_code AS 'ID', cust_name, 'Customer' AS 'Rodzaj'
+FROM
+    customer
+WHERE
+    working_area = 'London';
 
 -- b)
-SELECT agents.agent_code, agent_name, ord_num, 'najwyższa', ord_date
-FROM agents, orders
-WHERE agents.agent_code = orders.agent_code
-AND orders.ord_amount=
-(SELECT MAX(ord_amount)
-FROM orders c
-WHERE orders.ord_date = c.ord_date)
-UNION
-(SELECT agents.agent_code, agent_name, ord_num, 'najniższa', ord_date
-FROM agents, orders
-WHERE agents.agent_code = orders.agent_code
-AND orders.ord_amount=
-(SELECT MIN(ord_amount)
-FROM orders c
-WHERE orders.ord_date = c.ord_date));
+SELECT 
+    agents.agent_code,
+    agent_name,
+    ord_num,
+    'najwyższa',
+    ord_date
+FROM
+    agents,
+    orders
+WHERE
+    agents.agent_code = orders.agent_code
+        AND orders.ord_amount = (SELECT 
+            MAX(ord_amount)
+        FROM
+            orders c
+        WHERE
+            orders.ord_date = c.ord_date) 
+UNION (SELECT 
+    agents.agent_code,
+    agent_name,
+    ord_num,
+    'najniższa',
+    ord_date
+FROM
+    agents,
+    orders
+WHERE
+    agents.agent_code = orders.agent_code
+        AND orders.ord_amount = (SELECT 
+            MIN(ord_amount)
+        FROM
+            orders c
+        WHERE
+            orders.ord_date = c.ord_date));
 
  /*
 WITH
@@ -178,6 +218,51 @@ SELECT *
 FROM londonstaff
 WHERE commission > 0.14;
 
+CREATE VIEW londonstaff AS
+    SELECT 
+        *
+    FROM
+        agents
+    WHERE
+        working_area = 'London';
+
+SELECT 
+    *
+FROM
+    londonstaff
+WHERE
+    commission > .14;
+
 -- b)
+WITH gradecount AS (
+SELECT grade, count(*)
+FROM customer
+GROUP BY grade)
+SELECT * 
+FROM gradecount;
+
+CREATE VIEW gradecount (grade , number) AS
+    SELECT 
+        grade, COUNT(*)
+    FROM
+        customer
+    GROUP BY grade;
 
 -- c)
+WITH total_per_dzien AS (
+SELECT ord_date, COUNT(DISTINCT cust_code),
+AVG(ord_amount), SUM(ord_amount)
+FROM orders
+GROUP BY ord_date)
+SELECT * 
+FROM total_per_dzien;
+
+CREATE VIEW total_per_dzien AS
+    SELECT 
+        ord_date,
+        COUNT(DISTINCT cust_code),
+        AVG(ord_amount),
+        SUM(ord_amount)
+    FROM
+        orders
+    GROUP BY ord_date;
