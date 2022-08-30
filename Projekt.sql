@@ -1,6 +1,5 @@
 -- 1.
 CREATE DATABASE Sklep_odzieżowy;
-DROP DATABASE Sklep_odzieżowy;
 USE Sklep_odzieżowy;
 
 -- 2.
@@ -76,26 +75,26 @@ INSERT INTO Produkty VALUES (20, 4, 'Spodnie', 'Sweatpants Ult-Pro Yellow', 150,
 SELECT * FROM Produkty;
 
 INSERT INTO Zamówienia VALUES (1, 'A0001', 17, '2022-01-01');
-INSERT INTO Zamówienia VALUES (2, 'A0002', 7, '2022-02-01');
+INSERT INTO Zamówienia VALUES (2, 'A0001', 1, '2022-02-01');
 INSERT INTO Zamówienia VALUES (3, 'A0003', 1, '2022-03-01');
 INSERT INTO Zamówienia VALUES (4, 'A0004', 2, '2022-04-01');
-INSERT INTO Zamówienia VALUES (5, 'A0005', 8, '2022-05-01');
-INSERT INTO Zamówienia VALUES (6, 'A0006', 13, '2022-06-01');
-INSERT INTO Zamówienia VALUES (7, 'A0007', 20, '2022-06-01');
+INSERT INTO Zamówienia VALUES (5, 'A0005', 2, '2022-05-01');
+INSERT INTO Zamówienia VALUES (6, 'A0005', 13, '2022-06-01');
+INSERT INTO Zamówienia VALUES (7, 'A0005', 20, '2022-06-01');
 INSERT INTO Zamówienia VALUES (8, 'A0008', 5, '2022-08-01');
-INSERT INTO Zamówienia VALUES (9, 'A0009', 4, '2022-08-01');
+INSERT INTO Zamówienia VALUES (9, 'A0007', 4, '2022-08-01');
 INSERT INTO Zamówienia VALUES (10, 'A0010', 3, '2022-08-01');
 SELECT * FROM Zamówienia;
 
 INSERT INTO Klienci VALUES ('A0001', 1, 'Anna', 'Kopczewska', 'Al. Niepodległości 103 02-626 Warszawa');
-INSERT INTO Klienci VALUES ('A0002', 2, 'Robert', 'Dąbrowski', 'Al. Niepodległości 105 02-626 Warszawa');
+INSERT INTO Klienci VALUES ('A0002', 11, 'Robert', 'Dąbrowski', 'Al. Niepodległości 105 02-626 Warszawa');
 INSERT INTO Klienci VALUES ('A0003', 3, 'Bartosz', 'Kaczmarek', 'Ul. Puławska 176/178 02-670 Warszawa');
 INSERT INTO Klienci VALUES ('A0004', 4, 'Krzysztof', 'Kosecki', 'Ul. Winna 3 92-328 Łódź');
 INSERT INTO Klienci VALUES ('A0005', 5, 'Agnieszka', 'Nowak', 'Al. Wyszyńskiego 92 94-050 Łódź');
-INSERT INTO Klienci VALUES ('A0006', 6, 'Jan', 'Kowalski', 'Ul. Marszałkowska 2 00-026 Warszawa');
-INSERT INTO Klienci VALUES ('A0007', 7, 'Adam', 'Krawczyk', 'Ul. Floriańska 10 33-332 Kraków');
+INSERT INTO Klienci VALUES ('A0006', 12, 'Jan', 'Kowalski', 'Ul. Marszałkowska 2 00-026 Warszawa');
+INSERT INTO Klienci VALUES ('A0007', 9, 'Adam', 'Krawczyk', 'Ul. Floriańska 10 33-332 Kraków');
 INSERT INTO Klienci VALUES ('A0008', 8, 'Tomasz', 'Kot', 'Al. Józefa Piłsudskiego 9 09-402 Płock');
-INSERT INTO Klienci VALUES ('A0009', 9, 'Ewa', 'Kosecka', 'Ul. Baraniaka 122 61-131 Poznań');
+INSERT INTO Klienci VALUES ('A0009', 13, 'Ewa', 'Kosecka', 'Ul. Baraniaka 122 61-131 Poznań');
 INSERT INTO Klienci VALUES ('A0010', 10, 'Jan', 'Malinowski', 'Ul. Jana Matejki 1 85-061 Bydgoszcz');
 SELECT * FROM Klienci;
 
@@ -104,12 +103,22 @@ ALTER TABLE Klienci ADD CONSTRAINT zamówienia_fk FOREIGN KEY (id_zamówienia) R
 ALTER TABLE Zamówienia ADD CONSTRAINT klienci_fk FOREIGN KEY (id_klienta) REFERENCES Klienci(id_klienta);
 
 -- 8.
+-- Nie do końca rozumiem z treści tego zadania czy mam dołączyć do tabeli dane dotyczące producenta. Zrobiłam dwa rozwiązania (dla tego i kolejnego podpunktu) - pierwsze gdy dołączenie danych producenta nie jest wymagane, a drugie gdy jest wymagane.
+SELECT * 
+FROM Produkty
+WHERE id_producenta = 1;
+
 SELECT *
 FROM Produkty
 LEFT JOIN Producenci ON Produkty.id_producenta = Producenci.id_producenta
 WHERE Producenci.id_producenta = 1;
 
 -- 9.
+SELECT * 
+FROM Produkty
+WHERE id_producenta = 1
+ORDER BY nazwa_produktu;
+
 SELECT *
 FROM Produkty
 LEFT JOIN Producenci ON Produkty.id_producenta = Producenci.id_producenta
@@ -138,12 +147,17 @@ RIGHT JOIN Zamówienia ON Produkty.id_produktu = Zamówienia.id_produktu;
 -- 13.
 SELECT *
 FROM Produkty
-INNER JOIN Zamówienia ON Produkty.id_produktu = Zamówienia.id_produktu;
+INNER JOIN Zamówienia ON Produkty.id_produktu = Zamówienia.id_produktu
+LIMIT 5;
 
 -- 14.
 SELECT SUM(cena_brutto_sprzedaży)
 FROM Produkty
 RIGHT JOIN Zamówienia ON Produkty.id_produktu = Zamówienia.id_produktu;
+
+SELECT SUM(cena_brutto_sprzedaży)
+FROM Zamówienia
+LEFT JOIN Produkty ON Zamówienia.id_produktu = Produkty.id_produktu;
 
 -- 15.
 SELECT Zamówienia.*, Produkty.nazwa_produktu
@@ -158,14 +172,14 @@ WHERE id_produktu IS NULL OR id_producenta IS NULL OR nazwa_produktu IS NULL OR 
 
 -- 17.
 WITH zamówienia_z_cenami AS (
-SELECT Zamówienia.*, Produkty.cena_brutto_sprzedaży
+SELECT Zamówienia.*, Produkty.nazwa_produktu, Produkty.cena_brutto_sprzedaży
 FROM Zamówienia
 LEFT JOIN Produkty ON Zamówienia.id_produktu = Produkty.id_produktu)
-SELECT id_produktu, cena_brutto_sprzedaży, COUNT(id_produktu) AS liczba_zamówionych_sztuk
+SELECT id_produktu, nazwa_produktu, cena_brutto_sprzedaży, COUNT(id_produktu) AS liczba_zamówionych_sztuk
 FROM zamówienia_z_cenami
 GROUP BY id_produktu
 ORDER BY liczba_zamówionych_sztuk DESC
-LIMIT 1;
+LIMIT 2;
 
 -- 18.
 SELECT data_zamówienia, COUNT(data_zamówienia)
