@@ -103,7 +103,6 @@ ALTER TABLE Klienci ADD CONSTRAINT zamówienia_fk FOREIGN KEY (id_zamówienia) R
 ALTER TABLE Zamówienia ADD CONSTRAINT klienci_fk FOREIGN KEY (id_klienta) REFERENCES Klienci(id_klienta);
 
 -- 8.
--- Nie do końca rozumiem z treści tego zadania czy mam dołączyć do tabeli dane dotyczące producenta. Zrobiłam dwa rozwiązania (dla tego i kolejnego podpunktu) - pierwsze gdy dołączenie danych producenta nie jest wymagane, a drugie gdy jest wymagane.
 SELECT * 
 FROM Produkty
 WHERE id_producenta = 1;
