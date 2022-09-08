@@ -178,7 +178,16 @@ SELECT id_produktu, nazwa_produktu, cena_brutto_sprzedaży, COUNT(id_produktu) A
 FROM zamówienia_z_cenami
 GROUP BY id_produktu
 ORDER BY liczba_zamówionych_sztuk DESC
-LIMIT 2;
+LIMIT 1;
+
+WITH produkt_info AS (
+SELECT id_produktu, count(id_zamówienia) AS liczba_zamówień
+FROM Zamówienia
+GROUP BY id_produktu)
+SELECT produkt_info.id_produktu, Produkty.nazwa_produktu, Produkty.cena_brutto_sprzedaży, produkt_info.liczba_zamówień
+FROM produkt_info
+LEFT JOIN Produkty ON produkt_info.id_produktu = Produkty.id_produktu
+WHERE liczba_zamówień = (SELECT MAX(liczba_zamówień) FROM produkt_info);
 
 -- 18.
 SELECT data_zamówienia, COUNT(data_zamówienia)
